@@ -19,27 +19,22 @@ class empresa{
 public:
     void mostrarLog();
     void menuPrincipal();
-    void menuMantenimiento();
+    void menuCatalogos();
     void menuEmpleados();
-    void registrarEmpleado();
-    void modificarEmpleado();
-    void eliminarEmpleado();
-    void mostrarDatosEmpleados();
-    void menuDepartamentos();
-    void registrarDepto();
-    void modificarDepto();
-    void eliminarDepto();
-    void mostrarDatosDepto();
-    void menuNomina();
-    void displayNomina();
-    void modifyNomina();
-    void searchNomina();
-    void deletNomina();
-    void menuConceptoImpuestos();
-    void registrarConceptoImpuestos();
-    void modificarConceptoImpuestos();
-    void eliminarConceptoImpuestos();
-    void mostrarDatosConceptoImpuestos();
+    void registrarCatalogos();
+    void modificarCatalogos();
+    void eliminarCatalogos();
+    void mostrarCatalogos();
+    void menuMaestro();
+    void registrarMaestro();
+    void modificarMaestro();
+    void eliminarMaestro();
+    void mostrarDatosMaestro();
+    void menuProceso();
+    void displayProceso();
+    void modifyProceso();
+    void searchProceso();
+    void deletProceso();
     void menuPoliza();
     bool verificar(string ced, string num);
     void agregar(ofstream &es);
@@ -47,7 +42,7 @@ public:
     void reclamaciones(ofstream &Esc, ifstream &Lec);
     void ModificarPlan(ifstream &Lec);
 private:
-    string documentoIdentificacion, puesto2,nombre, direccion, edad, correo, telefono, estudios, puesto, desicion, busquedaDatos, numDepto, nombreDepto, telefonoDepto, direccionDepto;
+    string documentoIdentificacion, puesto2,nombre, direccion, edad, correo, padre, madre, telefono, estudios, puesto, desicion, busquedaDatos, numDepto, nombreDepto, telefonoDepto, direccionDepto;
     string numeroid,choice, Id, nomConcep, montoConcep;
     int   hora,horaextra,totalhoras,horatr;
     float impuesto,sueldo1,bonificacion,isr,igss,irtra,totaldesc,sueldo,totalnominas,sueldototal,sueldo2;
@@ -100,10 +95,10 @@ void empresa::menuPrincipal(){
     cout << "\n\n\t\tElija el numero del menu al que quiera ingresar\n"<< endl << "\t\t[1] CATALOGOS\n" << "\t\t[2] PROCESOS\n" << "\t\t[3] INFORMES\n" << "\t\t[4] Salir del programa\n";cout<<"\n\t\t";cin >> menu;
     switch(menu){
     case 1:
-        menuMantenimiento();
+        menuCatalogos();
         break;
     case 2:
-        menuNomina();
+        menuProcesos();
         break;
     case 3:
          mostrarLog();
@@ -124,21 +119,21 @@ void empresa::menuPrincipal(){
 
 }
 
-void empresa::menuMantenimiento(){
+void empresa::menuCatalogos(){
     system("cls");
     fstream log;
     log.open("bitacora.dat",ios::app|ios::out|ios::binary);
     log<<"entro al menu mantenimiento, ";
     log.close();
     int menu;
-    cout << "\n\t\tBienvenido al --MENU MANTENIMIENTO--" << endl;
-    cout << "\n\t\tElija el numero del menu al que quiere ingresar\n" << endl << "\t\t[1] Empleados\n" << "\t\t[2] Departamentos\n" << "\t\t[3] Salir al --MENU PRINCIPAL--\n";cout<<"\n\t\t"; cin >> menu;
+    cout << "\n\t\tBienvenido al --MENU CATOLOGOS--" << endl;
+    cout << "\n\t\tElija el numero del menu al que quiere ingresar\n" << endl << "\t\t[1] ALUMNO" << "\t\t[2] MAESTRO\n" << "\t\t[3] Salir al --MENU PRINCIPAL--\n";cout<<"\n\t\t"; cin >> menu;
     switch (menu){
     case 1:
-        menuEmpleados();
+        menuCatalogos();
         break;
     case 2:
-        menuDepartamentos();
+        menuMaestro();
         break;
     case 3:
         cout << "\n\tSaliendo al --MENU PRINCIPAL--" << endl;
@@ -155,7 +150,7 @@ void empresa::menuEmpleados(){
     log<<"entro al menu empleados, ";
     log.close();
     int menu;
-    cout << "\n\t\tBienvenido al --MENU MANTENIMIENTO EMPLEADO--" << endl;
+    cout << "\n\t\tBienvenido al --MENU CATALOGOS ALUMNO-" << endl;
     cout << "\n\t\tElija el numero del menu al que quiere ingresar\n" << endl << "\t\t[1] ALTAS" << "\t\t[2] BAJAS" <<  "\t\t[3] MODIFICACION<< "<<"\t\t[4] Mostrar Datos Empleados\n" << "\t\t[5] Salir al --MENU PRINCIPAL--\n";cout<<"\n\t\t"; cin >> menu;
     switch (menu){
     case 1:
@@ -171,7 +166,7 @@ void empresa::menuEmpleados(){
         mostrarDatosEmpleados();
         break;
     case 5:
-        cout << "\n\tSaliendo al --MENU MANTENIMIENTO--" << endl;
+        cout << "\n\tSaliendo al --MENU CATALOGOS--" << endl;
         cout<<"\t";system ("pause");
         return menuMantenimiento();
         break;
@@ -191,16 +186,13 @@ void empresa::registrarEmpleado(){
     }
     else {
         cout << "\n\t\tIngrese el numero de documento de identificacion de la persona: "; cin >> documentoIdentificacion;
-        cout << "\t\tIngrese el nombre de la persona a registrar: "; cin >> nombre;
-        cout << "\t\tIngrese la edad de la persona a registrar: "; cin >> edad;
-        cout << "\t\tIngrese el correo de la persona a registrar: "; cin >> correo;
-        cout << "\t\tIngrese el numero de telefono de la persona a registrar: "; cin >> telefono;
-        cout << "\t\tIngrese la direccion de la persona a registrar: "; cin >> direccion;
-        cout << "\t\tIngrese el nivel de estudios de la persona a registrar: "; cin >> estudios;
-        cout << "\t\tIngrese el puesto de la persona a registrar: "; cin>>puesto;
-        cout<<  "\t\tIngresa las Horas Trabajadas de la persona a registrar "; cin>> horatr;
-        cout<<  "\t\ttIngresa la Cantidad que Gana por Hora la persona a registrar  : "; cin>> hora;
-        cout<<  "\t\tIngresa la Cantidad de Horas Extras Trabajadas de la persona a registrar (SI NO TIENE HORAS EXTRAS TRABAJADAS, INGRESE 0) : "; cin>> horaextra;
+        cout << "\t\tIngrese el nombre del alumno a registrar: "; cin >> nombre;
+        cout << "\t\tIngrese la edad del alumno a registrar: "; cin >> edad;
+        cout << "\t\tIngrese el correo del alumno a registrar: "; cin >> correo;
+        cout << "\t\tIngrese el numero de telefono del alumno a registrar: "; cin >> telefono;
+        cout << "\t\tIngrese la direccion del alumno a registrar registrar:"; cin >> direccion;
+        cout << "\t\tIngrese el nombre del Padre del alumno a registrar: "; cin >> padre;
+        cout << "\t\tIngrese el nombre de la Madre del alumno: "; cin>> madre;
         cout << "\n\t--Registro completado--\n" << endl;
         log.open("bitacora.dat",ios::app|ios::out|ios::binary);
         log<< "registro a: "<<documentoIdentificacion<<", ";
