@@ -33,8 +33,6 @@ public:
     void menuProceso();
     void displayProceso();
     void modifyProceso();
-    void searchProceso();
-    void deletProceso();
     void menuPoliza();
     bool verificar(string ced, string num);
     void agregar(ofstream &es);
@@ -42,10 +40,8 @@ public:
     void reclamaciones(ofstream &Esc, ifstream &Lec);
     void ModificarPlan(ifstream &Lec);
 private:
-    string documentoIdentificacion, puesto2,nombre, direccion, edad, correo, padre, madre, telefono, estudios, puesto, desicion, busquedaDatos, numDepto, nombreDepto, telefonoDepto, direccionDepto;
+    string documentoIdentificacion, puesto2,nombre, direccion, edad, correo, padre, madre, telefono, estudios, puesto, desicion, busquedaDatos, maestroid, maestronom, maestrotelefono, maestrodireccion, maestroestudios, maestromateria;
     string numeroid,choice, Id, nomConcep, montoConcep;
-    int   hora,horaextra,totalhoras,horatr;
-    float impuesto,sueldo1,bonificacion,isr,igss,irtra,totaldesc,sueldo,totalnominas,sueldototal,sueldo2;
 };
 
 const std::string currentDateTime() {
@@ -98,7 +94,7 @@ void colegio::menuPrincipal(){
         menuCatalogos();
         break;
     case 2:
-        menuProcesos();
+        menuProceso();
         break;
     case 3:
          mostrarLog();
@@ -465,7 +461,7 @@ void colegio::menuMaestro(){
         eliminarMaestro();
         break;
     case 4:
-        mostrarDatosMaestro<();
+        mostrarDatosMaestro();
         break;
     case 5:
         cout << "\n\tSaliendo al --MENU PRINCIPAL--" << endl;
@@ -475,7 +471,7 @@ void colegio::menuMaestro(){
     }
 }
 
-void colegio::registrarMaestro();{
+void colegio::registrarMaestro(){
     system("cls");
     fstream baseDatos, log;
     cout << "\n\t\t\tEntrando al menu --REGISTRAR MAESTROS--\n" << endl;
@@ -520,7 +516,7 @@ void colegio::modificarMaestro(){
     else {
         cout << "\n\t\t\tIngrese el numero de identificacion del maestro que busca: "; cin >> busquedaDatos;
         modBaseDatos.open("temporalmaestro.dat",ios::out|ios::binary);
-        baseDatos>>maestroid>>maestronom>>maestrotelefono>>maestrodireccion<<maestroestudios<<maestromateria;
+        baseDatos>>maestroid>>maestronom>>maestrotelefono>>maestrodireccion>>maestroestudios>>maestromateria;
         while (!baseDatos.eof()){
             if (busquedaDatos!=maestroid){
                 modBaseDatos<<std::left<<std::setw(15)<< maestroid <<std::left<<std::setw(15)<< maestronom <<std::left<<std::setw(15)<< maestrotelefono <<std::left<<std::setw(15)<< maestrodireccion <<std::left<<std::setw(15)<< maestroestudios <<std::left<<std::setw(15)<< maestromateria <<"\n";
@@ -538,7 +534,7 @@ void colegio::modificarMaestro(){
                 modBaseDatos <<std::left<<std::setw(15)<< maestroid <<std::left<<std::setw(15)<< maestronom <<std::left<<std::setw(15)<< maestrotelefono <<std::left<<std::setw(15)<< maestrodireccion <<std::left<<std::setw(15)<< maestroestudios <<std::left<<std::setw(15)<< maestromateria <<"\n";
             }
 
-       baseDatos>>maestroid>>maestronom>>maestrotelefono>>maestrodireccion<<maestroestudios<<maestromateria;
+       baseDatos>>maestroid>>maestronom>>maestrotelefono>>maestrodireccion>>maestroestudios>>maestromateria;
         }
         modBaseDatos.close();
         baseDatos.close();
@@ -580,7 +576,7 @@ void colegio::eliminarMaestro(){
 	{
 		cout<<"\n Ingrese el numero de identificacion que quiere borrar: ";cin>>busquedaDatos;
 		file1.open("temporalmaestro.dat",ios::binary|ios::app | ios::out);
-		file >>maestroid>>maestronom>>maestrotelefono>>maestrodireccion<<maestroestudios<<maestromateria;
+		file >>maestroid>>maestronom>>maestrotelefono>>maestrodireccion>>maestroestudios>>maestromateria;
 		while(!file.eof())
 		{
 			if(busquedaDatos!=maestroid)
@@ -596,7 +592,7 @@ void colegio::eliminarMaestro(){
                 log.close();
 				cout << "\n\t\t\tBorrado de informacion exitoso";
 			}
-			file >>maestroid>>maestronom>>maestrotelefono>>maestrodireccion<<maestroestudios<<maestromateria;
+			file >>maestroid>>maestronom>>maestrotelefono>>maestrodireccion>>maestroestudios>>maestromateria;
 		}
 		if(found==0)
 		{
@@ -645,7 +641,7 @@ void colegio::mostrarDatosMaestro(){
         {
             cout << "\n\t\t\tEntrando en el menu --BUSCAR--"<<endl;
             cout << "\n\t\tIngrese el numero de identificacion a buscar: "; cin >> busquedaDatos;
-            baseDatos>>maestroid>>maestronom>>maestrotelefono>>maestrodireccion<<maestroestudios<<maestromateria;
+            baseDatos>>maestroid>>maestronom>>maestrotelefono>>maestrodireccion>>maestroestudios>>maestromateria;
             while(!baseDatos.eof()){
                 if(busquedaDatos==maestroid){
                     cout<<"\n\t\tNumero de Identificacion "<< maestroid;
@@ -663,7 +659,7 @@ void colegio::mostrarDatosMaestro(){
                     cout<<"\n\t";system("pause");
                     return menuMaestro();
                 }
-                baseDatos>>maestroid>>maestronom>>maestrotelefono>>maestrodireccion<<maestroestudios<<maestromateria;
+                baseDatos>>maestroid>>maestronom>>maestrotelefono>>maestrodireccion>>maestroestudios>>maestromateria;
             }
             if(datos==0)
             {
@@ -696,7 +692,7 @@ void colegio::mostrarDatosMaestro(){
         }
         else
         {
-            baseDatos>>numDepto>>nombreDepto>>telefonoDepto>>direccionDepto;
+            baseDatos>>maestroid>>maestronom>>maestrotelefono>>maestrodireccion>>maestroestudios>>maestromateria;
             while(!baseDatos.eof())
             {
                 total++;
@@ -706,7 +702,7 @@ void colegio::mostrarDatosMaestro(){
                  cout<<"\n\t\tDireccion del Maestro: "<< direccion;
                  cout<<"\n\t\tEstudios del Maestro: "<< maestroestudios;
                  cout<<"\n\t\tMateria asignada del Maestro: "<< maestromateria;
-                baseDatos>>maestroid>>maestronom>>maestrotelefono>>maestrodireccion<<maestroestudios<<maestromateria;
+                baseDatos>>maestroid>>maestronom>>maestrotelefono>>maestrodireccion>>maestroestudios>>maestromateria;
                 if (baseDatos.is_open()){
                     baseDatos.close();
                     cout<<"\n\n\t\tArchivo cerrado";}
@@ -736,7 +732,7 @@ void colegio::mostrarDatosMaestro(){
 void colegio::menuProceso(){
 fstream log;
 log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-log<<"entro al MENU NOMINA ";
+log<<"entro al MENU PROCESOS ";
 log.close();
 
     int choice;
@@ -763,19 +759,13 @@ log.close();
     case 1:
     	do
     	{
-    		displayNomina();
-    		cout<<"\n\t\t\t Agrega otro empleado a la nomina (Y,N): ";
+    		displayProceso();
+    		cout<<"\n\t\t\t Agrega otro (Y,N): ";
     		cin>>x;
 		}while(x=='y'||x=='Y');
 		break;
-	case 2:
-		searchNomina();
-		break;
 	case 3:
 		return menuPrincipal();
-		break;
-	case 4:
-		deletNomina ();
 		break;
 	case 5:
 		exit(0);
@@ -786,11 +776,11 @@ log.close();
     }while(choice!= 3);
 }
 
-void empresa::displayNomina()
+void colegio::displayProceso()
 {
 fstream log;
 log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-log<<"entro MOSTRAR EMPLEADOS EN NOMINA ";
+log<<"entro MOSTRAR PROCESO DEL COLEGIO ";
 log.close();
 
 	system("cls");
@@ -805,28 +795,16 @@ log.close();
 	}
 	else
 	{
-		baseDatos>>documentoIdentificacion>>nombre>>edad>>correo>>telefono>>direccion>>estudios>>puesto>>horatr>>hora>>horaextra;
-        cout<<"\t\nNOMBRES  | "<<"CARGO             |"<<"HORASTRABAJADAS"<<"   |"<<"CANTIDADPORHORA"<<"   |"<<"HORASEXTRAS"<<"   |"<<"BONIFICACION"<<" "<<" "<<"    |"<<"ISR"<<"      |"<<"IGSS"<<"         |"<<"IRTRA"<<"          |"<<"TOTALDESCUENTOS"<<"|       "<<"SALARIOTOTAL\t\t\n ";
+		baseDatos>>documentoIdentificacion>>nombre>>direccion>>telefono>>edad>>correo>>padre>>madre>>maestronom;
+        cout<<"\t\nID  | "<<"NOMBRE             |"<<"DIRECCION"<<"   |"<<"TELEFONO"<<"    |"<<"EDAD"<<"    |"<<"CORREO"<<" "<<" "<<"    |"<<"NOMBE DEL PADRE"<<"      |"<<"NOMBE DE LA MADRE"<<"         |"<<"MAESTRO ASIGNADO"<<"" ;
         cout<<"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------"<<endl;
 		while(!baseDatos.eof())
 		{
 
-			sueldo1 = horatr+horaextra;
-			sueldo= sueldo1*hora;
 
-
-
-			isr = sueldo*0.05;
-			igss = sueldo*0.0483;
-			irtra= sueldo*0.01;
-			totaldesc=isr+igss+irtra;
-
-			sueldo2=sueldo-totaldesc;
-			bonificacion=sueldo2+250;
-
-			cout<<nombre<<" "<<" "<<"|"<<puesto<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<"|"<<" "<<" "<<" "<<" "<<horatr<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<"|"<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<hora<<" "<<" "<<" "<<" "<<" "<<" "<<"|"<<" "<<" "<<" "<<" "<<horaextra<<" "<<" "<<" "<<" "<<" "<<" "<<"|"<<"250"<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<"|"<<isr<<" "<<" "<<"|"<<igss<<"|"<<irtra<<" "<<"|"<<" "<<" "<<totaldesc<<" "<<" "<<" "<<" "<<" "<<" "<<"|"" "<<" "<<bonificacion;
+			cout<<documentoIdentificacion<<" "<<" "<<"|"<<nombre<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<"|"<<" "<<" "<<" "<<" "<<direccion<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<"|"<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<telefono<<" "<<" "<<" "<<" "<<" "<<" "<<"|"<<" "<<" "<<" "<<" "<<edad<<" "<<" "<<" "<<" "<<" "<<" "<<"|"<<correo<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<"|"<<padre<<" "<<" "<<"|"<<madre<<"|"<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<" "<<"|"<<" "<<" "<<maestronom;
 			cout<<"\n-------------------------------------------------------------------------------------------------------------------------------------------------------------------------"<<endl;
-			baseDatos>>nombre>>puesto>>horatr>>hora>>horaextra>>sueldo1>>sueldo>>isr>>igss>>irtra>>totaldesc>>sueldo2>>bonificacion;
+			baseDatos>>documentoIdentificacion>>nombre>>direccion>>telefono>>edad>>correo>>padre>>madre>>maestronom;
 			total++;
 		}
 		if(total==0)
@@ -837,693 +815,10 @@ log.close();
 	baseDatos.close();
 }
 
-void empresa::modifyNomina()
-{
-fstream log;
-log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-log<<"entro MODIFICAR EMPLEADOS EN NOMINA ";
-log.close();
 
-	system("cls");
-	fstream file,file1;
-	string participant_id;
-	int found=0;
-	cout<<"\n-------------------------Modificacion Detalles Empleado-------------------------"<<endl;
-	file.open("empleados.dat",ios::in|ios::binary);
-	if(!file)
-	{
-		cout<<"\n\t\t\tNo hay informacion..,";
-		file.close();
-	}
-	else
-	{
-		cout<<"\n Ingrese Id del Empleado que quiere modificar: ";
-		cin>>participant_id;
-		file1.open("Record.dat",ios::app|ios::out|ios::binary);
-		file >> numeroid >> nombre >> telefono >> horatr >> hora >> horaextra;
-		while(!file.eof())
-		{
-			if(participant_id!=numeroid)
-			{
-			 file1<<std::left<<std::setw(15)<< numeroid <<std::left<<std::setw(15)<< nombre <<std::left<<std::setw(15)<< telefono <<std::left<<std::setw(15)<< horatr <<std::left<<std::setw(15)<< hora << std::left<<std::setw(15)<< horaextra << "\n";
-			}
-			else
-			{
-				cout<<"\t\t\tIngresa Id Empleado        : ";
-	            cin>>numeroid;
-                cout<<"\t\t\tIngresa Nombre del Empleado     : ";
-	            cin>>nombre;
-	            cout<<"\t\t\tIngresa Telefono del Empleado   : ";
-	            cin>>telefono;
-	            cout<<"\t\t\tIngresa las Horas Trabajadas: ";
-	            cin>>horatr;
-	            cout<<"\t\t\tIngresa la Cantidad que Gana por Hora  : ";
-	            cin>>hora;
-	            cout<<"\t\t\tIngresa la Cantidad de Horas Extras Trabajadas (si no tiene horas extras ingrese 0) : ";
-                cin>>horaextra;
-                sueldo1 = horatr+horaextra;
-			    sueldototal= sueldo1*hora;
-			    bonificacion= sueldototal+250;
-			    cout<<"\t\t\t Bonificacion Incentiva de Q250.00 "<<endl;
-			    cout<<"\t\t\t Sueldo total a recibir "<< bonificacion<<endl;
-                log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-                log<<"registro a: "<<numeroid<<", ";
-                log.close();
-				file1<<std::left<<std::setw(15)<< numeroid <<std::left<<std::setw(15)<< nombre <<std::left<<std::setw(15)<< telefono <<std::left<<std::setw(15)<< horatr <<std::left<<std::setw(15)<< hora << std::left<<std::setw(15)<< horaextra << std::left<<std::setw(15)<< sueldototal << std::left<<std::setw(15)<< bonificacion <<"\n";
-				found++;
-			}
-			file >> numeroid >> nombre >> telefono >> horatr >> hora >> horaextra >> sueldototal >> bonificacion;
-
-		}
-
-		file1.close();
-		file.close();
-		remove("empleados.dat");
-		rename("Record.dat","Empleados.dat");
-	}
-}
-
-void empresa::searchNomina()
-{
-    fstream log;
-log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-log<<"entro BUSCAR EMPLEADOS EN NOMINA ";
-log.close();
-	system("cls");
-	fstream file;
-	int found=0;
-	file.open("empleados.dat",ios::in|ios::binary);
-	if(!file)
-	{
-		cout<<"\n-------------------------Datos del Empleado buscada------------------------"<<endl;
-		cout<<"\n\t\t\tNo hay informacion...";
-	}
-	else
-	{
-		string participant_id;
-		cout<<"\n-------------------------Datos del Empleado buscada------------------------"<<endl;
-		cout<<"\nIngrese Id del Empleado que quiere buscar: ";
-		cin>>participant_id;
-		file >> numeroid >> nombre >> telefono >> horatr >> hora >> horaextra;
-		while(!file.eof())
-		{
-			if(participant_id==numeroid)
-			{
-				cout<<"\n\n\t\t\t Id del Empleado: "<<numeroid<<endl;
-			    cout<<"\t\t\t Nombre del Empleado: "<<nombre<<endl;
-			    cout<<"\t\t\t Telefono del Empleado: "<<telefono<<endl;
-			    cout<<"\t\t\t Horas Trabajadas del Empleado: "<<horatr<<endl;
-			    cout<<"\t\t\t Cantidad que Gana por Hora: "<<hora<<endl;
-			    cout<<"\t\t\t Horas extas trabajadas: "<<horaextra<<endl;
-				found++;
-			}
-			file >> numeroid >> nombre >> telefono >> horatr >> hora >> horaextra;
-		}
-		if(found==0)
-		{
-			cout<<"\n\t\t\t Empleado no encontrado...";
-		}
-		file.close();
-	}
-}
-
-void empresa::deletNomina()
-{
-    fstream log;
-log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-log<<"entro ELIMINAR EMPLEADOS EN NOMINA ";
-log.close();
-
-	system("cls");
-	fstream file,file1;
-	string participant_id;
-	int found=0;
-	cout<<"\n-------------------------Detalles de Empleado a Borrar-------------------------"<<endl;
-	file.open("empleados.dat",ios::in|ios::binary);
-	if(!file)
-	{
-		cout<<"\n\t\t\tNo hay informacion...";
-		file.close();
-	}
-	else
-	{
-		cout<<"\n Ingrese el Id del Empleado que quiere borrar: ";
-		cin>>participant_id;
-		file1.open("Record.dat",ios::app|ios::out|ios::binary);
-		file >> numeroid >> nombre >> telefono >> horatr >> hora >> horaextra;
-		while(!file.eof())
-		{
-			if(participant_id!=numeroid)
-			{
-				file1<<std::left<<std::setw(15)<< numeroid <<std::left<<std::setw(15)<< nombre <<std::left<<std::setw(15)<< telefono <<std::left<<std::setw(15)<< horatr <<std::left<<std::setw(15)<< hora <<std::left<<std::setw(15)<< horaextra << "\n";
-			}
-			else
-			{
-               log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-               log<<"registro a: "<<numeroid<<", ";
-               log.close();
-
-				found++;
-				cout << "\n\t\t\tBorrado de informacion exitoso";
-			}
-			file >> numeroid >> nombre >> telefono >> horatr >> hora >> horaextra;
-		}
-		if(found==0)
-		{
-			cout<<"\n\t\t\t Id del Empleado no encontrado...";
-		}
-
-		file1.close();
-		file.close();
-		remove("empleados.dat");
-		rename("Record.dad","Empleados.dad");
-	}
-}
-
-void empresa::menuConceptoImpuestos(){
-    system("cls");
-    fstream baseDatos, log;
-    log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-    log<<"entro al menu Impuestos, ";
-    log.close();
-    int menu;
-    cout << "\n\t\tBienvenido al --MENU MANTENIMIENTO IMPUESTOS--" << endl;
-    cout << "\n\t\tElija el numero del menu al que quiere ingresar\n" << endl << "\t\t[1] Registrar Concepto Impuestos\n" << "\t\t[2] Modificar Concepto Impuestos\n" <<  "\t\t[3] Eliminar Concepto Impeustos\n" << "\t\t[4] Mostrar Datos ConceptoImpuestos\n" << "\t\t[5] Salir al --MENU PRINCIPAL--\n";cout<<"\n\t\t"; cin >> menu;
-    switch (menu){
-    case 1:
-        registrarConceptoImpuestos();
-        break;
-    case 2:
-        modificarConceptoImpuestos();
-        break;
-    case 3:
-        eliminarConceptoImpuestos();
-        break;
-    case 4:
-        mostrarDatosConceptoImpuestos();
-        break;
-    case 5:
-        cout << "\n\tSaliendo al --MENU PRINCIPAL--" << endl;
-        cout<<"\t";system ("pause");
-        return menuPrincipal();
-        break;
-    }
-}
-
-void empresa::registrarConceptoImpuestos(){
-    system("cls");
-    fstream baseDatos, log;
-    log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-    log<<"entro al menu Registrar Concepto Impuesto ";
-    log.close();
-    cout << "\n\t\t\tEntrando al menu --REGISTRAR CONCEPTO IMPUESTOS--\n" << endl;
-    cout << "\n\t�Quires salir al --MENU IMPUESTOS--? [ si / no ] : "; cin >> desicion;
-    if (desicion=="si"){
-        return menuConceptoImpuestos();
-    }
-    else {
-        cout << "\n\t\tIngrese el numero de documento de identificacion de la persona: "; cin >> Id;
-        cout << "\t\tIngrese el nombre de la persona a registrar: "; cin >> nombre;
-        cout << "\t\tIngrese la edad de la persona a registrar: "; cin >> edad;
-        cout << "\t\tIngrese el correo de la persona a registrar: "; cin >> correo;
-        cout << "\t\tIngrese el numero de telefono de la persona a registrar: "; cin >> telefono;
-        cout << "\t\tIngrese la direccion de la persona a registrar: "; cin >> direccion;
-        cout << "\t\tIngrese el nombre del concepto: "; cin >> nomConcep;
-        cout << "\t\tIngrese monto del concepto: "; cin >> montoConcep;
-        cout << "\t\tIngrese el sueldo de la persona a registrar: "; cin>>sueldo;
-        cout << "\n\t--Registro completado--\n" << endl;
-        log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-        log<<"registro el impuesto: "<<Id<<", ";
-        log.close();
-        baseDatos.open("impuestos.dat",ios::app | ios::out | ios::binary);
-        baseDatos<<std::left<<std::setw(15)<< Id <<std::left<<std::setw(15)<< nombre <<std::left<<std::setw(15)<< edad <<std::left<<std::setw(15)<< correo <<std::left<<std::setw(15)<< telefono <<std::left<<std::setw(15)<< direccion <<std::left<<std::setw(15)<< nomConcep << std::left<<std::setw(15)<< montoConcep << std::left<<std::setw(15)<< sueldo <<"\n";
-        baseDatos.close();
-    }
-    cout <<"\n\n\t\tRegresando al --MENU CONCEPTO IMPUESTOS--";
-    cout<<"\n\t";system("pause");
-    return menuConceptoImpuestos();
-}
-
-void empresa::modificarConceptoImpuestos(){
-    system("cls");
-    fstream log;
-    log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-    log<<"entro al menu Modificar Concepto Impuestos ";
-    log.close();
-    fstream baseDatos, modBaseDatos;
-    cout << "\n\t\t\tEntrando al menu --MODIFICAR CONCEPTO IMPUESTOS--" << endl;
-    baseDatos.open("impuestos.dat",ios::in|ios::binary);
-    if(!baseDatos){
-        cout << "\n\t\tNo se encontro el archivo" << endl;
-        baseDatos.close();
-        cout <<"\n\n\t\t\tRegresando al --MENU IMPUESTOS--";
-        cout<<"\n\t";system("pause");
-        return menuConceptoImpuestos();
-    }
-    else {
-        cout << "\n\t\t\tIngrese el numero de Documento de Identificacion de la persona que busca: "; cin >> busquedaDatos;
-        modBaseDatos.open("temporalImpuestos.dat",ios::out|ios::binary);
-        baseDatos>>Id>>nombre>>edad>>correo>>telefono>>direccion>>nomConcep>>montoConcep>>sueldo;
-        while (!baseDatos.eof()){
-            if (busquedaDatos!=Id){
-                modBaseDatos <<std::left<<std::setw(15)<< Id <<std::left<<std::setw(15)<< nombre <<std::left<<std::setw(15)<< edad <<std::left<<std::setw(15)<< correo <<std::left<<std::setw(15)<< telefono << std::left<<std::setw(15)<< direccion << std::left<<std::setw(15)<< nomConcep << std::left<<std::setw(15)<< montoConcep << std::left<<std::setw(15)<< sueldo <<"\n";
-            }
-            else {
-                cout << "\n\t\tIngrese el numero de documento de identificacion de la persona: "; cin >> Id;
-                cout << "\t\tIngrese el nombre de la persona a registrar: "; cin >> nombre;
-                cout << "\t\tIngrese la edad de la persona a registrar: "; cin >> edad;
-                cout << "\t\tIngrese el correo de la persona a registrar: "; cin >> correo;
-                cout << "\t\tIngrese el numero de telefono de la persona a registrar: "; cin >> telefono;
-                cout << "\t\tIngrese la direccion de la persona a registrar: "; cin >> direccion;
-                cout << "\t\tIngrese el nombre del concepto: "; cin >> nomConcep;
-                cout << "\t\tIngrese monto del concepto: "; cin >> montoConcep;
-                cout << "\t\tIngrese el sueldo de la persona a registrar: "; cin>>sueldo;
-                log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-                log<<"modifico el Concepto impuesto: "<<Id<<", ";
-                log.close();
-                modBaseDatos <<std::left<<std::setw(15)<< Id <<std::left<<std::setw(15)<< nombre <<std::left<<std::setw(15)<< edad <<std::left<<std::setw(15)<< correo <<std::left<<std::setw(15)<< telefono << std::left<<std::setw(15)<< direccion << std::left<<std::setw(15)<< nomConcep << std::left<<std::setw(15)<< montoConcep << std::left<<std::setw(15)<< sueldo <<"\n";
-            }
-            baseDatos>>Id>>nombre>>edad>>correo>>telefono>>direccion>>nomConcep>>montoConcep>>sueldo;
-        }
-        modBaseDatos.close();
-        baseDatos.close();
-    if (baseDatos.is_open())
-        baseDatos.close();
-    if (modBaseDatos.is_open())
-        modBaseDatos.close();
-
-    if( remove( "impuestos.dat" ) != 0 )
-        perror( "\n\t\tError deleting file" );
-    else
-        puts( "\n\t\tFile successfully deleted" );
-
-    if (rename("temporalImpuestos.dat","impuestos.dat") != 0)
-        perror("\n\t\tError renaming file");
-    else
-        cout << "\n\t\tFile renamed successfully";
-    }
-
-    cout <<"\n\n\t\tRegresando al --MENU IMPUESTOS--";
-    cout<<"\n\t";system("pause");
-    return menuConceptoImpuestos();
-}
-
-void empresa::eliminarConceptoImpuestos(){
-    system("cls");
-    fstream log;
-    log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-    log<<"entro al menu Eliminar CONCEPTO Impuestos ";
-    log.close();
-	fstream baseDatos,modBaseDatos;
-	int found=0;
-	cout << "\n\t\t\tEntrando al menu --ELIMINAR CONCEPTO IMPUESTOS--" << endl;
-	baseDatos.open("impuestos.dat",ios::in|ios::binary);
-	if(!baseDatos)
-	{
-		cout<<"\n\t\t\tNo hay informacion...\a";
-		baseDatos.close();
-	}
-	else
-	{
-		cout << "\n\t\tIngrese el numero de Documento de Identificacion de la persona que busca: "; cin >> busquedaDatos;
-		modBaseDatos.open("temporalImpuestos.dat", ios::app | ios::out | ios::binary);
-		baseDatos>>Id>>nombre>>edad>>correo>>telefono>>direccion>>nomConcep>>montoConcep>>sueldo;
-		while(!baseDatos.eof())
-		{
-			if(busquedaDatos!=Id)
-			{
-				modBaseDatos <<std::left<<std::setw(15)<< Id <<std::left<<std::setw(15)<< nombre <<std::left<<std::setw(15)<< edad <<std::left<<std::setw(15)<< correo <<std::left<<std::setw(15)<< telefono << std::left<<std::setw(15)<< direccion << std::left<<std::setw(15)<< nomConcep << std::left<<std::setw(15)<< montoConcep << std::left<<std::setw(15)<< sueldo <<"\n";
-			}
-			else
-			{
-				found++;
-				log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-                log<<"elimino el concepto impuesto: "<<Id<<", ";
-                log.close();
-				cout << "\n\t\t\tBorrado de informacion exitoso\a";
-			}
-			baseDatos>>Id>>nombre>>edad>>correo>>telefono>>direccion>>nomConcep>>montoConcep>>sueldo;
-		}
-		if(found==0)
-		{
-			cout<<"\n\t\t\t Empleado no encontrado...\a";
-		}
-		modBaseDatos.close();
-        baseDatos.close();
-    if (baseDatos.is_open())
-        baseDatos.close();
-    if (modBaseDatos.is_open())
-        modBaseDatos.close();
-
-    if( remove( "impuestos.dat" ) != 0 )
-        perror( "\n\t\tError deleting file" );
-    else
-        puts( "\n\t\tFile successfully deleted" );
-
-    if (rename("temporalImpuestos.dat","impuestos.dat") != 0)
-        perror("\n\t\tError renaming file");
-    else
-        cout << "\n\t\tFile renamed successfully";
-    }
-
-    cout <<"\n\n\t\t\tRegresando al --MENU IMPUESTOS--";
-    cout<<"\n\t";system("pause");
-    return menuConceptoImpuestos();
-}
-
-void empresa::mostrarDatosConceptoImpuestos(){
-    system("cls");
-    fstream log;
-    log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-    log<<"entro al menu Mostrar Datos concepto Impuestos, ";
-    log.close();
-    fstream baseDatos;
-    cout << "\n\t\t\tEntrando al menu --MOSTRAR DATOS CONCEPTO IMPUESTOS--";
-    cout << "\n\n\t\t�Quiere buscar a una persona en especifico? [ si / no ] : "; cin>>desicion;
-    if (desicion=="si"){
-        int datos=0;
-        baseDatos.open("impuestos.dat",ios::in|ios::binary);
-        if(!baseDatos)
-        {
-            cout<<"\n\t\tError";
-            cout<<"\n\t\t\tNo se encontro el archivo, asegurese de que el archivo este en la misma carpeta que el programa";
-        }
-        else
-        {
-            cout << "\n\t\t\tEntrando en el menu --BUSCAR CONCEPTO IMPUESTOS--"<<endl;
-            cout << "\n\t\tIngrese el numero del Documento de Identificacion de la persona a buscar: "; cin >> busquedaDatos;
-            baseDatos>>Id>>nombre>>edad>>correo>>telefono>>direccion>>nomConcep>>montoConcep>>sueldo;
-            while(!baseDatos.eof()){
-                if(busquedaDatos==Id){
-                    cout<<"\n\t\tDocumento de Identificacion: "<< Id;
-                    cout<<"\n\t\tNombre: " << nombre;
-                    cout<<"\n\t\tEdad: "<< edad;
-                    cout<<"\n\t\tCorreo Electronico: "<< correo;
-                    cout<<"\n\t\tTelefono: "<< telefono;
-                    cout<<"\n\t\tDireccion: "<< direccion;
-                    cout<<"\n\t\tNombre del concepto: "<< nomConcep;
-                    cout<<"\n\t\tMonto del concepto: "<< montoConcep;
-                    cout<<"\n\t\tSueldo: "<< sueldo;
-                    datos++;
-                    if (baseDatos.is_open()){
-                        baseDatos.close();
-                        cout<<"\n\n\t\tArchivo cerrado";}
-
-                    cout<<"\n\n\t\t\tRegresando al --MENU IMPUESTOS--";
-                    cout<<"\n\t";system("pause");
-                    return menuConceptoImpuestos();
-                    baseDatos.close();
-                }
-                baseDatos>>Id>>nombre>>edad>>correo>>telefono>>direccion>>nomConcep>>montoConcep>>sueldo;
-            }
-            if(datos==0)
-            {
-                cout<<"\n\t\t\tNo se encontro ninguna coincidencia, intentelo de nuevo";
-                cout <<"\n\n\t\t\tRegresando al --MENU MOSTRAR DATOS CONCEPTO IMPUESTOS--";
-                cout<<"\n\t";system("pause");
-                return mostrarDatosConceptoImpuestos();
-                if (baseDatos.is_open()){
-                    baseDatos.close();
-                    cout<<"\n\n\t\tArchivo cerrado";}
+ int main(){
 
 
-            }
-        }
-        if (baseDatos.is_open()){
-            baseDatos.close();
-            cout<<"\n\n\t\tArchivo cerrado";}
-
-    }
-    else {
-        fstream baseDatos;
-        int total=0;
-        cout<<"\n\t\t\tEntrando al --MENU MOSTRAR DATOS CONCEPTO IMPUESTOS"<<endl;
-        baseDatos.open("impuestos.dat",ios::in|ios::binary);
-        if(!baseDatos){
-            cout<<"\n\t\t\tError\n\t\t\tNo se encontro el archivo, asegurese de que el archivo se encuentre en la misma carpeta del programa";
-            if (baseDatos.is_open()){
-                baseDatos.close();
-                cout<<"\n\n\t\tArchivo cerrado";}
-
-
-            cout <<"\n\n\t\t\tRegresando al --MENU IMPUESTOS--";
-            cout<<"\n\t";system("pause");
-            return menuConceptoImpuestos();
-        }
-        else
-        {
-            baseDatos>>Id>>nombre>>edad>>correo>>telefono>>direccion>>nomConcep>>montoConcep>>sueldo;
-            while(!baseDatos.eof())
-            {
-                total++;
-                cout<<"\n\n\t\tDocumento de Identificacion: "<< Id;
-                cout<<"\n\t\tNombre: " << nombre;
-                cout<<"\n\t\tEdad: "<< edad;
-                cout<<"\n\t\tCorreo Electronico: "<< correo;
-                cout<<"\n\t\tTelefono: "<< telefono;
-                cout<<"\n\t\tDireccion: "<< direccion;
-                cout<<"\n\t\tNombre del concepto: "<< nomConcep;
-                cout<<"\n\t\tMonto del concepto: "<< montoConcep;
-                cout<<"\n\t\tSueldo: "<< sueldo;
-                baseDatos>>Id>>nombre>>edad>>correo>>telefono>>direccion>>nomConcep>>montoConcep>>sueldo;
-            }
-            if(total==0){
-                cout<<"\n\t\t\tEl archivo se encuentra vacio...";
-            }
-            if (baseDatos.is_open()){
-                baseDatos.close();
-                cout<<"\n\n\t\tArchivo cerrado";}
-
-            cout <<"\n\n\t\tRegresando al --MENU IMPUESTOS--";
-            cout<<"\n\t";system("pause");
-            return menuConceptoImpuestos();
-        }
-        if (baseDatos.is_open()){
-            baseDatos.close();
-            cout<<"\n\n\t\tArchivo cerrado";}
-
-
-    }
-    if (baseDatos.is_open()){
-            baseDatos.close();
-            cout<<"\n\n\t\tArchivo cerrado";}
-
-}
-
- void empresa::menuPoliza(){
- 	int opt;
-	fstream log;
-      log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-      log<<"ingreso a menu Poliza, ";
-      log.close();
- 	system("cls");
- 	cout<<"+----------------------------------+\n";
- 	cout<<"|          MENU POLIZA             |\n";
- 	cout<<"+----------------------------------+\n";
- 	cout<<"| 1) Ver reclamaciones acumuladas  |\n";
- 	cout<<"| 2) Reclamaciones pendientes      |\n";
- 	cout<<"| 3) Modificar plan                |\n";
- 	cout<<"| 4) Registrar reclamante          |\n";
- 	cout<<"| 5) Salir                         |\n";
- 	cout<<"+----------------------------------+\n";
- 	cout<<"Opcion:  ";
- 	cin>>opt;
- 	ofstream Esc, es;
-	ifstream Lec;
-    switch(opt){
-        case 1:
-            VerPoliza(Lec);
-            break;
-        case 2:
-            reclamaciones(Esc, Lec);
-            break;
-        case 3:
-            ModificarPlan(Lec);
-            break;
-        case 4:
-            agregar(es);
-            break;
-        case 5:
-            menuPrincipal();
-            break;
-    }
- }
-
-  bool empresa::verificar(string ced, string num){
- 	ifstream leer("poliza.dat", ios::in|ios::binary);
-	fstream log;
-      log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-      log<<"ingreso a verificar Poliza, ";
-      log.close();
- 	string Num, Nom, Ape, Ced, Plan;
- 	leer>>Num;
- 	while(!leer.eof()){
- 		leer>>Nom;
- 	    leer>>Ape;
- 	    leer>>Ced;
- 	    leer>>Plan;
- 	    if(Ced == ced || Num == num){
- 	    	cout<<"Este registro ya existe.\n";
- 		system("pause");
- 		leer.close();
- 		return false;
-		 }
-	 }
- 	leer.close();
- 	return true;
- }
-
- void empresa::agregar(ofstream &es){//funcion creada por Carlos Montes
-	system("cls");
-	fstream log;
-      log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-      log<<"ingreso a agregar reclamante en Poliza, ";
-      log.close();
-	cout<<"<--------- nuevo registro de reclamante ---------->\n";
-	string num, nom, ape, ced, plan;
-	es.open("poliza.dat", ios::out | ios::app|ios::binary);
-	cout<<"Numero de poliza: ";
-	cin>>num;
-	cout<<"Nombre: ";
-	cin>>nom;
-	cout<<"Apellido: ";
-	cin>>ape;
-	cout<<"Cedula: ";
-	cin>>ced;
-	system("cls");
-	cout<<"A) Plan A tiene deducible de $100 y restar copago de 40% de la reclamacion\n";
-	cout<<"B) Plan B tiene deducible de $50 y restar copago de 60% de la reclamacion\n";
-	cout<<"C) No quiero plan";
-	cout<<"Selecciona un plan: ";
-	cin>>plan;
-	if(verificar(ced, num))
-	es<<num<<" "<<nom<<" "<<ape<<" "<<ced<<" "<<plan<<"\n";
-	es.close();
-}
-
-void empresa::VerPoliza(ifstream &Lec){//funcion creada por Carlos Montes
-	system("cls");
-	fstream log;
-      log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-      log<<"ingreso a Mostrar Reclamaciones de poliza, ";
-      log.close();
-	string num, nom, ape, ced, plan;
-	Lec.open("acumulada.dat", ios::in|ios::binary);
-	cout<<"+----------------------------------------+\n";
-	cout<<"|       Reclamaciones acumuladas         |\n";
-	cout<<"+----------------------------------------+\n";
-	if(Lec.is_open()){
-		Lec>>num;
-		while(!Lec.eof()){
-			Lec>>nom;
-			Lec>>ape;
-			Lec>>ced;
-			Lec>>plan;
-			cout<<"Numero de poliza--: "<<num<<endl;
-			cout<<"Nombre------------: "<<nom<<endl;
-			cout<<"Apellido----------: "<<ape<<endl;
-			cout<<"Cedula------------: "<<ced<<endl;
-			cout<<"Plan de poliza----: "<<plan<<"\n\n";
-			Lec>>num;
-		}
-		Lec.close();
-		system("pause");
-	}else{
-		cout<<"No se pudo acceder a la base de datos\n";
-		system("pause");
-	}
-}
-
-void empresa::reclamaciones(ofstream &Esc, ifstream &Lec){//funcion creada por Carlos Montes
-	system("cls");
-	fstream log;
-      log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-      log<<"ingreso a reclamaciones de poliza, ";
-      log.close();
-	string num, nom, ape, ced, plan, numaux;
-	Lec.open("poliza.dat", ios::in|ios::binary);
-	bool encontrado = false;
-	cout<<"Digite el numero de poliza: ";
-	cin>>numaux;
-	if(Lec.is_open()){
-		Lec>>num;
-		while(!Lec.eof() && !encontrado){
-			Lec>>nom;
-			Lec>>ape;
-			Lec>>ced;
-			Lec>>plan;
-			if(num == numaux){
-				if(plan =="A" || plan =="a" || plan == "B" || plan == "b"){
-					Esc.open("acumulada.dat", ios::out | ios::app|ios::binary);
-					Esc<<num<<" "<<ape<<" "<<ced<<" "<<plan<<"\n";
-					Esc.close();
-					cout<<"Se a�adio una reclamacion acumulada\n";
-					system("pause");
-					encontrado = true;
-				}else{
-					cout<<"ERROR: Usted no cuenta con un plan para su poliza\n";
-					system("pause");
-					encontrado = true;
-				}
-			}
-			Lec>>num;
-		}
-		Lec.close();
-		if(!encontrado){
-			cout<<"Registro no encontrado.\n";
-			system("pause");
-			system("cls");
-			agregar(Esc);
-		}
-	}else{
-		cout<<"No se pudo acceder a la base de Datos\n";
-		system("pause");
-	}
-}
-
-void empresa::ModificarPlan(ifstream &Lec){//funcion creada por Carlos Montes
-	system("cls");
-      fstream log;
-      log.open("bitacora.dat",ios::app|ios::out|ios::binary);
-      log<<"ingreso a Modificar Plan de Poliza, ";
-      log.close();
-	string num, nom, ape, ced, plan, numaux, planaux;
-	Lec.open("poliza.dat", ios::in|ios::binary);
-	ofstream aux("auxiliar.dat", ios::out|ios::binary);
-	if(Lec.is_open()){
-		cout<<"Digite el numero de poliza a modificiar: ";
-		cin>>numaux;
-		Lec>>num;
-		while(!Lec.eof()){
-			Lec>>nom;
-			Lec>>ape;
-			Lec>>ced;
-			Lec>>plan;
-			if(num == numaux){
-				system("cls");
-				cout<<"A) Plan A tiene deducible de RD$100 y restar copago de 40% de la reclamacion\n";
-				cout<<"B) Plan B tiene deducible de RD$50 y restar copago de 60% de la reclamacion\n";
-				cout<<"Seleccione un plan: ";
-				cin>>planaux;
-				aux<<num<<" "<<nom<<" "<<ape<<" "<<ced<<" "<<planaux<<"\n";
-			}else{
-				aux<<num<<" "<<nom<<" "<<ape<<" "<<ced<<" "<<plan<<"\n";
-			}
-			Lec>>num;
-		}
-		Lec.close();
-		aux.close();
-	}else{
-		cout<<"No se pudo acceder a la base de datos\n";
-		system("pause");
-	}
-	remove("poliza.dat");
-	rename("auxiliar.dat", "poliza.dat");
-}
-
- int main(){//funcion creada por Carlos Gonzalez
-
-     //bitacora, log in, creado por Carlos Gonzalez
 
     system ("cls");
     int contador=0;
@@ -1601,8 +896,8 @@ void empresa::ModificarPlan(ifstream &Lec){//funcion creada por Carlos Montes
                         bienvenida.close();
                     }
                     bienvenida.close();
-                    empresa empleado;
-                    empleado.menuPrincipal();
+                    colegio colegio2;
+                    colegio2.menuPrincipal();
                     cin.get();
                 }
                 return ingresa;
